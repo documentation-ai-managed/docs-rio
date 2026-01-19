@@ -1,0 +1,100 @@
+---
+title: Introduction to Rio
+description: Discover Rio, your default documentation space for organizing and managing project documentation with ease.
+---
+
+## Overview
+
+Rio provides your default documentation space where you organize and manage all project documentation effortlessly. You create structured spaces for teams, embed code examples, and collaborate in real-time. With intuitive tools, you focus on content while Rio handles the organization.
+
+## Key Features
+
+Rio stands out with powerful features that streamline your documentation workflow.
+
+<Columns cols={3}>
+  <Card title="Organized Spaces" icon="layout" href="/docs/spaces">
+    Create unlimited documentation spaces for projects, teams, or products. Nest pages hierarchically for intuitive navigation.
+  </Card>
+  <Card title="Rich Editing" icon="edit-3" href="/docs/editor">
+    Embed MDX components, code blocks, and interactive elements directly in your docs.
+  </Card>
+  <Card title="Collaboration" icon="users" href="/docs/collaboration">
+    Real-time editing, version history, and role-based permissions keep teams aligned.
+  </Card>
+</Columns>
+
+## Why Choose Rio
+
+You choose Rio for its simplicity and power. Unlike static wikis, Rio supports dynamic MDX content with components like `<Callout>` and `<Steps>`. It scales from solo projects to enterprise teams, with search, analytics, and integrations. Enjoy seamless versioning without git hassles.
+
+<Callout kind="tip">
+  Rio uses brand color `<span style="color: #3B82F6">blue (#3B82F6)</span>` for primary elements. Apply it in custom themes via CSS variables like `{--primary-color: #3B82F6}`.
+</Callout>
+
+## Quick Start
+
+Get started with Rio in minutes.
+
+<Steps>
+  <Step title="Create Account" icon="user-plus">
+    Sign up at `https://rio.example.com` with your email.
+  </Step>
+  <Step title="New Space" icon="plus">
+    Click "New Space" and name it for your project, like "MyApp Docs".
+  </Step>
+  <Step title="Add Page" icon="file-plus">
+    Create your first page using the rich editor.
+  </Step>
+  <Step title="Publish" icon="globe">
+    Share your space publicly or invite collaborators.
+  </Step>
+</Steps>
+
+## Quick Navigation
+
+Jump to essential sections.
+
+<Columns cols={2}>
+  <Card title="Quickstart Guide" icon="zap" href="/quickstart">
+    Set up your first documentation space.
+  </Card>
+  <Card title="Authentication" icon="shield" href="/authentication">
+    Secure your spaces with API keys and OAuth.
+  </Card>
+  <Card title="Editor Guide" icon="edit" href="/editor">
+    Master MDX components and formatting.
+  </Card>
+  <Card title="Changelog" icon="git-commit" href="/changelog">
+    Track updates and new features.
+  </Card>
+</Columns>
+
+## Brand Guidelines
+
+<Expandable title="Detailed Brand Guidelines" default-open="false">
+
+Follow these for consistent branding:
+
+- **Primary Color:** `#3B82F6` (use for buttons, links)
+- **Secondary Color:** `#1E40AF` (darker shade for hover states)
+- **Typography:** System fonts like Inter or SF Pro
+
+Example CSS:
+
+````css
+:root {
+  --primary: #3B82F6;
+  --text: #111827;
+}
+
+.button {
+  background: var(--primary);
+  color: white;
+}
+````
+
+</Expandable>
+
+<Callout kind="success">
+  Ready to build? Start with the [Quickstart Guide](/quickstart) for hands-on setup.
+</Callout>

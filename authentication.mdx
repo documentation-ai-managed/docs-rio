@@ -1,0 +1,181 @@
+---
+title: Authentication and Permissions
+description: Learn how to secure your Rio spaces with user authentication and manage access permissions.
+---
+
+## Overview
+
+Secure your Rio spaces by implementing robust authentication and granular permissions. Rio supports multiple login methods for users and API keys for programmatic access. Define roles to control what team members can do, from viewing documents to managing spaces.
+
+<Callout kind="info">
+  Start by creating an account at `https://dashboard.example.com/signup`. All authentication flows require a verified email address.
+</Callout>
+
+## Account Login Methods
+
+Rio offers flexible login options for different team needs.
+
+<Tabs>
+  <Tab title="Email/Password" icon="mail">
+
+    Use standard credentials for quick access.
+
+    <Steps>
+      <Step title="Sign Up">
+        Visit `https://dashboard.example.com/signup` and enter your email and password.
+      </Step>
+      <Step title="Verify Email">
+        Check your inbox for a verification link from no-reply@rio.com.
+      </Step>
+      <Step title="Login">
+        Return to `https://dashboard.example.com/login` and sign in.
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="OAuth (Google)" icon="chrome">
+
+    Connect with Google for seamless single sign-on.
+
+    ```javascript
+    // Redirect to Rio OAuth endpoint
+    window.location.href = 'https://auth.example.com/oauth/google?redirect_uri=https://dashboard.example.com/callback';
+    ```
+
+    After approval, Rio redirects back with an access token.
+
+  </Tab>
+  <Tab title="API Token Exchange" icon="key">
+
+    Exchange external tokens for Rio sessions.
+
+    <CodeGroup tabs="cURL,JavaScript">
+      ```bash
+      curl -X POST https://api.example.com/v1/auth/exchange \
+        -H "Content-Type: application/json" \
+        -d '{"provider": "github", "token": "YOUR_EXTERNAL_TOKEN"}'
+      ```
+      ```javascript
+      const response = await fetch('https://api.example.com/v1/auth/exchange', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'github',
+          token: 'YOUR_EXTERNAL_TOKEN'
+        })
+      });
+      const data = await response.json();
+      ```
+    </CodeGroup>
+
+  </Tab>
+</Tabs>
+
+## API Keys and Tokens
+
+Generate API keys from your Rio dashboard for server-to-server communication.
+
+### Generating Keys
+
+Navigate to Account Settings > API Keys in the dashboard and create a new key.
+
+<ParamField header="Authorization" param-type="string" required="true">
+  Bearer token prefixed with `Bearer `. Example: `Bearer rio_abc123def456...`
+</ParamField>
+
+<ParamField header="X-Rio-Space-ID" param-type="string" required="false">
+  Optional space identifier for scoped requests.
+</ParamField>
+
+### Using API Keys
+
+Authenticate requests to protected endpoints.
+
+<CodeGroup tabs="JavaScript,Python">
+  ```javascript
+  const response = await fetch('https://api.example.com/v1/spaces', {
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    }
+  });
+  const spaces = await response.json();
+  console.log(spaces);
+  ```
+  ```python
+  import requests
+
+  headers = {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+  }
+  response = requests.get('https://api.example.com/v1/spaces', headers=headers)
+  spaces = response.json()
+  print(spaces)
+  ```
+</CodeGroup>
+
+## User Roles and Permissions
+
+Assign roles to control access within spaces.
+
+<Columns cols={2}>
+  <Card title="Admin" icon="shield">
+    Full access: manage users, spaces, and billing.
+  </Card>
+  <Card title="Editor" icon="edit-3">
+    Edit documents and invite members.
+  </Card>
+  <Card title="Viewer" icon="eye">
+    Read-only access to content.
+  </Card>
+  <Card title="Custom" icon="settings">
+    Granular permissions via dashboard.
+  </Card>
+</Columns>
+
+| Role    | Create Docs | Edit Docs | Manage Users | Delete Spaces |
+|---------|-------------|-----------|--------------|---------------|
+| Admin   | ✅          | ✅        | ✅           | ✅            |
+| Editor  | ✅          | ✅        | ❌           | ❌            |
+| Viewer  | ❌          | ❌        | ❌           | ❌            |
+
+## Security Best Practices
+
+Follow these guidelines to protect your Rio spaces.
+
+<Callout kind="alert">
+  Never expose API keys in client-side code or public repositories. Use environment variables like `RIO_API_KEY`.
+</Callout>
+
+<Steps>
+  <Step title="Rotate Keys Regularly">
+    Generate new keys every 90 days from the dashboard.
+  </Step>
+  <Step title="Use Scoped Permissions">
+    Create keys with minimal required scopes.
+  </Step>
+  <Step title="Enable 2FA">
+    Activate two-factor authentication in account settings.
+  </Step>
+  <Step title="Monitor Logs">
+    Review audit logs for suspicious activity.
+  </Step>
+</Steps>
+
+<Expandable title="Advanced: IP Restrictions" default-open="false">
+
+  Restrict API access to trusted IPs.
+
+  ```bash
+  curl -X POST https://api.example.com/v1/account/ip-restrictions \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '["192.0.2.1", "203.0.113.0/24"]'
+  ```
+
+</Expandable>
+
+<Callout kind="tip">
+  For more details, check the [Quickstart](/quickstart) guide or [Changelog](/changelog).
+</Callout>

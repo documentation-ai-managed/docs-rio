@@ -1,0 +1,140 @@
+---
+title: Changelog
+description: Track the latest updates and improvements to Rio with detailed version history.
+---
+
+## Recent Updates
+
+Stay informed about Rio's evolution. You receive notifications for major releases through your dashboard at `https://dashboard.example.com`. Check this changelog regularly for detailed changes.
+
+<Callout kind="tip">
+  Subscribe to our RSS feed or GitHub releases to get updates directly.
+</Callout>
+
+<Columns cols={3}>
+  <Card title="GitHub Releases" icon="github" href="https://github.com/rio/releases" target="_blank">
+    View all tagged releases and download assets.
+  </Card>
+  <Card title="RSS Feed" icon="rss" href="/changelog/rss.xml">
+    Subscribe for automatic update notifications.
+  </Card>
+  <Card title="API Status" icon="activity" href="https://status.example.com">
+    Monitor live API uptime and incidents.
+  </Card>
+</Columns>
+
+## v1.2.0 - 2024-10-15
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added real-time collaboration support for shared documents
+- Introduced webhook notifications for project events
+
+````jsx
+// Example: Set up webhook
+const webhookUrl = 'https://your-webhook-url.com/webhook';
+await rio.projects.createWebhook(projectId, webhookUrl, ['document.updated']);
+````
+
+## Improvements
+
+- Enhanced search performance by `>40%` on large projects
+- Updated UI with new brand color `#3B82F6` for primary elements
+
+## Bug Fixes
+
+- Fixed authentication token refresh loop in long sessions
+- Resolved file upload failures for files `>100MB`
+
+</Update>
+
+## v1.1.0 - 2024-09-20
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Dashboard analytics with usage charts and export options
+- Bulk import from CSV for project data migration
+
+````bash
+# Example: Bulk import via CLI
+rio import --project=myproject --file=data.csv --format=csv
+````
+
+## Improvements
+
+- Optimized API response times for list endpoints
+- Added pagination controls to web interface
+
+## Bug Fixes
+
+- Corrected permission checks for shared links
+- Patched potential XSS in document preview
+
+</Update>
+
+## v1.0.0 - 2024-08-10
+
+<Update label="2024-08-10" description="v1.0.0" tags={["breaking", "feature"]}>
+
+## Breaking Changes
+
+- Updated API version to `v2`; migrate using the [upgrade guide](/quickstart#upgrade)
+- Removed legacy `user.token` endpoint; use JWT instead
+
+## New Features
+
+- Core document management with version history
+- User authentication via API keys and OAuth
+
+````javascript
+// Example: Authenticate with new JWT
+const token = await rio.auth.login({ email: 'user@example.com', password: 'pass' });
+rio.setToken(token);
+const projects = await rio.projects.list();
+````
+
+## Initial Setup
+
+- Basic dashboard at `https://dashboard.example.com`
+- API base at `https://api.example.com/v2`
+
+</Update>
+
+## How to Check Your Version
+
+Follow these steps to verify your Rio installation version.
+
+<Steps>
+  <Step title="CLI Check" icon="terminal">
+
+````bash
+rio --version
+# Output: rio@1.2.0
+````
+
+  </Step>
+  <Step title="Dashboard" icon="monitor">
+    Log in to `https://dashboard.example.com` and check the footer.
+  </Step>
+  <Step title="API Query" icon="database">
+
+<CodeGroup tabs="JavaScript,cURL">
+````javascript
+const info = await rio.system.info();
+console.log(info.version); // "1.2.0"
+````
+````bash
+curl -H "Authorization: Bearer YOUR_TOKEN" https://api.example.com/v2/system/info
+````
+</CodeGroup>
+
+  </Step>
+</Steps>
+
+<Callout kind="info">
+  For full history beyond v1.0.0, visit our [GitHub releases page](https://github.com/rio/releases).
+</Callout>
